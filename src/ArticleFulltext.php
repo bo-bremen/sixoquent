@@ -9,6 +9,6 @@ class ArticleFulltext extends Model
     protected $table = 'sixcms_article_fulltext';
     
     public function article(){
-        return $this->belongsTo('Article');
+        return $this->belongsTo('\Javogt\Sixoquent\Article');
     }
 }

@@ -10,6 +10,6 @@ class ArticleData extends Model
     protected $hidden = ['sindex'];
     
     public function article(){
-        return $this->belongsTo('Article');
+        return $this->belongsTo('\Javogt\Sixoquent\Article');
     }
 }

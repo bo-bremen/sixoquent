@@ -9,6 +9,6 @@ class AreaProperties extends Model
     protected $table = 'sixcms_area_properties';
     
     public function area(){
-        return $this->belongsTo('Area');
+        return $this->belongsTo('\Javogt\Sixoquent\Area');
     }
 }

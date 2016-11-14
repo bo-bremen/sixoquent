@@ -12,23 +12,23 @@ class Area extends Model
 	const UPDATED_AT = 'change_date';
     
     public function folder(){
-        return $this->belongsTo('Folder');
+        return $this->belongsTo('\Javogt\Sixoquent\Folder');
     }
     
     public function article(){
-        return $this->hasMany('Article');
+        return $this->hasMany('\Javogt\Sixoquent\Article');
     }
     
     public function fields(){
-        return $this->hasMany('AreaFields');
+        return $this->hasMany('\Javogt\Sixoquent\AreaFields');
     }
     
     public function properties(){
-        return $this->hasMany('AreaProperties');
+        return $this->hasMany('\Javogt\Sixoquent\AreaProperties');
     }
 
     public function hiddenProperty(){
-        return $this->hasMany('AreaProperties')->where('label', 'hidden');
+        return $this->hasMany('\Javogt\Sixoquent\AreaProperties')->where('label', 'hidden');
     }
     
 }
