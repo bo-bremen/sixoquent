@@ -1,8 +1,8 @@
 <?php
+
 namespace Javogt\Sixoquent;
 
 use Illuminate\Database\Eloquent\Model;
-use Exception;
 
 class Article extends Model
 {
