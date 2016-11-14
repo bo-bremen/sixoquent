@@ -10,6 +10,6 @@ class ArticleData extends Model
     protected $hidden = ['sindex'];
     
     public function article(){
-        return $this->belongsTo('\App\Article');
+        return $this->belongsTo('Article');
     }
 }

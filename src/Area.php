@@ -12,23 +12,23 @@ class Area extends Model
 	const UPDATED_AT = 'change_date';
     
     public function folder(){
-        return $this->belongsTo('App\Folder');
+        return $this->belongsTo('Folder');
     }
     
     public function article(){
-        return $this->hasMany('App\Article');
+        return $this->hasMany('Article');
     }
     
     public function fields(){
-        return $this->hasMany('App\AreaFields');
+        return $this->hasMany('AreaFields');
     }
     
     public function properties(){
-        return $this->hasMany('App\AreaProperties');
+        return $this->hasMany('AreaProperties');
     }
 
     public function hiddenProperty(){
-        return $this->hasMany('App\AreaProperties')->where('label', 'hidden');
+        return $this->hasMany('AreaProperties')->where('label', 'hidden');
     }
     
 }

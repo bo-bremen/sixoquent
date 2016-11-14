@@ -9,6 +9,6 @@ class ArticleArticle extends Model
     protected $table = 'sixcms_article_article';
     
     public function article(){
-        return $this->belongsTo('App\Article');
+        return $this->belongsTo('Article');
     } 
 }

@@ -9,7 +9,7 @@ class AreaFields extends Model
     protected $table = 'sixcms_area_fields';
     
     public function area(){
-        return $this->belongsTo('App\Area');
+        return $this->belongsTo('Area');
     }
     
 }

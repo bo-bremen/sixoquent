@@ -13,11 +13,11 @@ class Article extends Model
     
     public function area()
     {
-        return $this->belongsTo('App\Area');
+        return $this->belongsTo('Area');
     }
     
     public function data(){
-        return $this->hasMany('App\ArticleData');
+        return $this->hasMany('ArticleData');
     }
     
     private function addValue($key, $value){
@@ -25,15 +25,15 @@ class Article extends Model
     }
     
     public function fulltext(){
-        return $this->hasMany('App\ArticleFulltext');
+        return $this->hasMany('ArticleFulltext');
     }
     
     public function article(){
-        return $this->hasMany('App\ArticleArticle');
+        return $this->hasMany('ArticleArticle');
     }
     
     public function link(){
-        return $this->hasMany('App\ArticleLink');
+        return $this->hasMany('ArticleLink');
     }
     
     public function addDataAsFields($fieldnames = null){
