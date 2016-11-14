@@ -13,11 +13,11 @@ class Article extends Model
     
     public function area()
     {
-        return $this->belongsTo('Area');
+        return $this->belongsTo('\Javogt\Sixoquent\Area');
     }
     
     public function data(){
-        return $this->hasMany('ArticleData');
+        return $this->hasMany('\Javogt\Sixoquent\ArticleData');
     }
     
     private function addValue($key, $value){
@@ -25,15 +25,15 @@ class Article extends Model
     }
     
     public function fulltext(){
-        return $this->hasMany('ArticleFulltext');
+        return $this->hasMany('\Javogt\Sixoquent\ArticleFulltext');
     }
     
     public function article(){
-        return $this->hasMany('ArticleArticle');
+        return $this->hasMany('\Javogt\Sixoquent\ArticleArticle');
     }
     
     public function link(){
-        return $this->hasMany('ArticleLink');
+        return $this->hasMany('\Javogt\Sixoquent\ArticleLink');
     }
     
     public function addDataAsFields($fieldnames = null){
