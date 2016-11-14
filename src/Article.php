@@ -1,5 +1,5 @@
 <?php
-namespace Sixoquent;
+namespace Javogt\Sixoquent;
 
 class Article {
 
