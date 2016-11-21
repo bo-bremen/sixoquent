@@ -11,4 +11,8 @@ class ArticleArticle extends Model
     public function article(){
         return $this->belongsTo('\Sixoquent\Article');
     } 
+
+    public function relArticle(){
+        return $this->hasOne('\Sixoquent\Article', 'id', 'rel_id');
+    }
 }
