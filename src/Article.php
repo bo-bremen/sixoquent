@@ -20,8 +20,8 @@ class Article extends Model
         return $this->hasMany('\Javogt\Sixoquent\ArticleData');
     }
     
-    private function addValue($key, $value){
-        $this->$key = $value;
+    public function mediaData(){
+        return $this->hasMany('\Javogt\Sixoquent\MediaData');
     }
     
     public function fulltext(){
@@ -46,6 +46,10 @@ class Article extends Model
             $this->addValue($field->fieldname, $field->value);
         }
         return $this;
+    }
+
+    private function addValue($key, $value){
+        $this->$key = $value;
     }
     
     public function addLinkAsFields(){
