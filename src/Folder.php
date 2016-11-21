@@ -1,6 +1,6 @@
 <?php
 
-namespace Javogt\Sixoquent;
+namespace Sixoquent;
 
 use Illuminate\Database\Eloquent\Model;
 

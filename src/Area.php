@@ -1,6 +1,6 @@
 <?php
 
-namespace Javogt\Sixoquent;
+namespace Sixoquent;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,23 +12,23 @@ class Area extends Model
 	const UPDATED_AT = 'change_date';
     
     public function folder(){
-        return $this->belongsTo('\Javogt\Sixoquent\Folder');
+        return $this->belongsTo('\Sixoquent\Folder');
     }
     
     public function article(){
-        return $this->hasMany('\Javogt\Sixoquent\Article');
+        return $this->hasMany('\Sixoquent\Article');
     }
     
     public function fields(){
-        return $this->hasMany('\Javogt\Sixoquent\AreaFields');
+        return $this->hasMany('\Sixoquent\AreaFields');
     }
     
     public function properties(){
-        return $this->hasMany('\Javogt\Sixoquent\AreaProperties');
+        return $this->hasMany('\Sixoquent\AreaProperties');
     }
 
     public function hiddenProperty(){
-        return $this->hasMany('\Javogt\Sixoquent\AreaProperties')->where('label', 'hidden');
+        return $this->hasMany('\Sixoquent\AreaProperties')->where('label', 'hidden');
     }
     
 }

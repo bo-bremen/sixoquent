@@ -1,6 +1,6 @@
 <?php
 
-namespace Javogt\Sixoquent;
+namespace Sixoquent;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,6 +10,6 @@ class ArticleData extends Model
     protected $hidden = ['sindex'];
     
     public function article(){
-        return $this->belongsTo('\Javogt\Sixoquent\Article');
+        return $this->belongsTo('\Sixoquent\Article');
     }
 }

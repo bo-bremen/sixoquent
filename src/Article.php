@@ -1,6 +1,6 @@
 <?php
 
-namespace Javogt\Sixoquent;
+namespace Sixoquent;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,27 +13,27 @@ class Article extends Model
     
     public function area()
     {
-        return $this->belongsTo('\Javogt\Sixoquent\Area');
+        return $this->belongsTo('\Sixoquent\Area');
     }
     
     public function data(){
-        return $this->hasMany('\Javogt\Sixoquent\ArticleData');
+        return $this->hasMany('\Sixoquent\ArticleData');
     }
     
     public function mediaData(){
-        return $this->hasMany('\Javogt\Sixoquent\MediaData');
+        return $this->hasMany('\Sixoquent\MediaData');
     }
     
     public function fulltext(){
-        return $this->hasMany('\Javogt\Sixoquent\ArticleFulltext');
+        return $this->hasMany('\Sixoquent\ArticleFulltext');
     }
     
     public function article(){
-        return $this->hasMany('\Javogt\Sixoquent\ArticleArticle');
+        return $this->hasMany('\Sixoquent\ArticleArticle');
     }
     
     public function link(){
-        return $this->hasMany('\Javogt\Sixoquent\ArticleLink');
+        return $this->hasMany('\Sixoquent\ArticleLink');
     }
     
     public function addDataAsFields($fieldnames = null){
