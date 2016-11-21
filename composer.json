@@ -1,7 +1,7 @@
 {
     "name": "javogt/sixoquent",
     "version": "0.0.1",
-    "license": "BSD-2-Clause",
+    "description": "Model classes to connect sixcms with eloquent/laravel",
     "authors": [
         {
             "name": "Jakob Vogt",
