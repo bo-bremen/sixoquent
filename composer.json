@@ -9,6 +9,11 @@
             "email": "jakobAvogt@gmail.com"
         }
     ],
+    "autoload": {
+        "psr-0": {
+            "Sixoquent": "src/"
+        }
+    },
     "require": {
         "php": ">=5.3.2"
     }
