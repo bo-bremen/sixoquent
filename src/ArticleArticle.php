@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ArticleArticle extends Model
 {
     protected $table = 'sixcms_article_article';
+    public $timestamps = false;
     
     public function article(){
         return $this->belongsTo('\Sixoquent\Article');
