@@ -1,5 +1,6 @@
 {
     "name": "javogt/sixoquent",
+    "version": "1.0.2",
     "license": "MIT",
     "description": "Model classes to connect sixcms with eloquent/laravel",
     "authors": [
