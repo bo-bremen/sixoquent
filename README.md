@@ -43,3 +43,20 @@ $articles = \Sixoquent\Article::where('area_id', $area->id)->get();
 
 ?>
 ~~~
+
+~~~php
+<?php
+
+use Sixoquent\Area;
+use Sixoquent\Article;
+
+$lsid = 'yoshi';
+
+// getting area by title
+$posts_area = Area::where('title', 'posts')->first();
+
+// getting all articles of all areas
+$post = Article::where('area_id', $posts_area->id)->where('lsid', $lsid);
+
+?>
+~~~
