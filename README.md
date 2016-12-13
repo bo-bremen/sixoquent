@@ -55,8 +55,34 @@ $lsid = 'yoshi';
 // getting area by title
 $posts_area = Area::where('title', 'posts')->first();
 
-// getting all articles of all areas
-$post = Article::where('area_id', $posts_area->id)->where('lsid', $lsid);
+// getting article from specific area and with specific lsid
+$post = Article::where('area_id', $posts_area->id)->where('lsid', $lsid)->first();
+
+?>
+~~~
+
+~~~php
+<?php
+
+use Sixoquent\Article;
+
+$post = Article::find(5);
+
+// Adding all additional fields
+$post = $post->addDataAsFields();
+
+?>
+~~~
+
+~~~php
+<?php
+
+use Sixoquent\Article;
+
+$post = Article::where('id', 5)->get(['id','title'])->first();
+
+// Adding only specific fields
+$post = $post->addDataAsFields(['content']);
 
 ?>
 ~~~
