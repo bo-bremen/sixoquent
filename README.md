@@ -101,3 +101,24 @@ foreach($posts as &$post){
 
 ?>
 ~~~
+
+~~~php
+<?php
+
+use Sixoquent\Article;
+
+$link_fieldname = 'image_link';
+
+$post = Article::find(1);
+
+// Getting linked data
+$linked_article = 
+    $post // There is the root post
+    ->link() // getting all links
+    ->where('fieldname', 'image_link') // getting only this one
+    ->first() // getting the model of the link
+    ->linkArticle() // getting the linked article of the link
+    ->first(); // getting the model of the article
+
+?>
+~~~
