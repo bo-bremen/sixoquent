@@ -1,11 +1,11 @@
 {
-    "name": "javogt/sixoquent",
+    "name": "bo-bremen/sixoquent",
     "license": "MIT",
     "description": "Model classes to connect sixcms with eloquent/laravel",
     "authors": [
         {
-            "name": "Jakob Vogt",
-            "email": "jakobAvogt@gmail.com"
+            "name": "Wirtschaftsförderung Bremen GmbH - Abteilung bremen.online",
+            "email": "jakob.vogt@bo-bremen.de"
         }
     ],
     "autoload": {
