@@ -1,6 +1,16 @@
 # sixoquent
 Model classes to connect sixcms with eloquent/laravel
 
+## installation
+
+~~~shell
+composer require bo-bremen/sixoquent
+~~~
+
+~~~shell
+php composer.phar require bo-bremen/sixoquent
+~~~
+
 ## examples
 
 ~~~php
