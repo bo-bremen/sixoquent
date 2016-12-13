@@ -86,3 +86,18 @@ $post = $post->addDataAsFields(['content']);
 
 ?>
 ~~~
+
+~~~php
+<?php
+
+use Sixoquent\Article;
+
+$posts = Article::where('area_id', 1)->get(['id','title']);
+
+// Adding additional data to multiple items
+foreach($posts as &$post){
+    $post = $post->addDataAsFields();
+}
+
+?>
+~~~
