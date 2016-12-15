@@ -16,29 +16,51 @@ class Article extends Model
         return $this->belongsTo('\Sixoquent\Area');
     }
     
-    public function data(){
+    public function data()
+    {
         return $this->hasMany('\Sixoquent\ArticleData');
     }
     
-    public function mediaData(){
+    public function mediaData()
+    {
         return $this->hasMany('\Sixoquent\MediaData');
     }
     
-    public function fulltext(){
+    public function fulltext()
+    {
         return $this->hasMany('\Sixoquent\ArticleFulltext');
     }
     
-    public function article(){
+    public function article()
+    {
         return $this->hasMany('\Sixoquent\ArticleArticle');
     }
     
-    public function link(){
+    public function link()
+    {
         return $this->hasMany('\Sixoquent\ArticleLink');
     }
+
+    public function saveData($fieldname, $value)
+    {
+        $articleData = \Sixoquent\ArticleData::where('article_id', $this->id)->where('fieldname', $fieldname)->first();
+        if (!isset($articleData)) {
+            $articleData = new \Sixoquent\ArticleData;
+        }
+
+        $articleData->article_id = $this->id;
+        $articleData->area_id = $this->area_id;
+        $articleData->fieldname = $fieldname;
+        $articleData->value = $value;
+        $articleData->sindex = substr($value, 0, 19);
+
+        $articleData->save();
+    }
     
-    public function addDataAsFields($fieldnames = null){
+    public function addDataAsFields($fieldnames = null)
+    {
         $query = $this->data();
-        if(isset($fieldnames)){
+        if (isset($fieldnames)) {
             $query->whereIn('fieldname', $fieldnames);
         }
         $fields = $query->get(['fieldname', 'value']);
@@ -48,11 +70,13 @@ class Article extends Model
         return $this;
     }
 
-    private function addValue($key, $value){
+    private function addValue($key, $value)
+    {
         $this->$key = $value;
     }
     
-    public function addLinkAsFields(){
+    public function addLinkAsFields()
+    {
         foreach ($this->link as $link) {
             $this->addValue($link->fieldname, $link->link_id);
         }
@@ -60,9 +84,10 @@ class Article extends Model
         return $this;
     }
     
-    public function addArticleAsFields($relationnames = null){
+    public function addArticleAsFields($relationnames = null)
+    {
         $query = $this->article();
-        if(isset($relationnames)){
+        if (isset($relationnames)) {
             $query->whereIn('fieldname', $relationnames);
         }
         $relations = $query->get(['fieldname', 'rel_id']);
@@ -71,7 +96,7 @@ class Article extends Model
         }
         return $this;
     }
-	
+    
     /**
     * returns attributes of an article
     *
