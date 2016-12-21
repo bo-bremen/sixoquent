@@ -75,12 +75,16 @@ class Article extends Model
         $this->$key = $value;
     }
     
-    public function addLinkAsFields()
+    public function addLinkAsFields($linknames = null)
     {
-        foreach ($this->link as $link) {
+        $query = $this->link();
+        if (isset($linknames)) {
+            $query->whereIn('fieldname', $linknames);
+        }
+        $links = $query->get(['fieldname', 'link_id']);
+        foreach ($links as $link) {
             $this->addValue($link->fieldname, $link->link_id);
         }
-        unset($this->link);
         return $this;
     }
     
