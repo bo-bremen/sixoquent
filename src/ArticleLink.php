@@ -16,4 +16,8 @@ class ArticleLink extends Model
     public function linkArticle(){
         return $this->hasOne('\Sixoquent\Article', 'id', 'link_id');
     }
+
+     public function rootArticle(){
+        return $this->hasOne('\Sixoquent\Article', 'id', 'article_id');
+    }
 }

@@ -3,6 +3,7 @@
 namespace Sixoquent;
 
 use Illuminate\Database\Eloquent\Model;
+use Sixoquent\ArticleLink;
 
 class Article extends Model
 {
@@ -10,7 +11,7 @@ class Article extends Model
     
     const CREATED_AT = 'creation_date';
     const UPDATED_AT = 'change_date';
-    
+
     public function area()
     {
         return $this->belongsTo('\Sixoquent\Area');
@@ -41,6 +42,11 @@ class Article extends Model
         return $this->hasMany('\Sixoquent\ArticleLink');
     }
 
+    /**
+    * Saves key value pair as ArticleData of this Article 
+    * @param {String} $fieldname
+    * @param {String} $value
+    */
     public function saveData($fieldname, $value)
     {
         $articleData = \Sixoquent\ArticleData::where('article_id', $this->id)->where('fieldname', $fieldname)->first();
@@ -57,6 +63,11 @@ class Article extends Model
         $articleData->save();
     }
     
+    /**
+    * Adds ArticleData models as properties to Article model. Fieldname of ArticleData becomes property name, value becomes value.
+    * @param {Array} [$fieldnames] Uses only ArticleData with given fieldnames
+    * @return {\Sixoquent\Article}
+    */
     public function addDataAsFields($fieldnames = null)
     {
         $query = $this->data();
@@ -99,6 +110,51 @@ class Article extends Model
             $this->addValue($relation->fieldname, $relation->rel_id);
         }
         return $this;
+    }
+
+     public function parentLink()
+    {
+         return $this->belongsTo('\Sixoquent\ArticleLink', 'id', 'article_id')
+                    ->where('fieldname', 'sixcms_parent')
+                    ->select(['article_id','link_id']);
+    }
+
+    public function childrenLinks()
+    {
+        return $this->hasMany('\Sixoquent\ArticleLink', 'link_id', 'id')
+                    ->where('fieldname', 'sixcms_parent')
+                    ->select(['article_id','link_id']);
+    }
+
+    public function addChildren($fields = null, $additionalData = null)
+    {
+        $childrenLinks = $this->childrenLinks()->get();
+        if (!$childrenLinks->isEmpty()) {
+            $this->children = collect();
+            foreach ($childrenLinks as $childLink) {
+                $link_article = $this->convertChildLinkToChildArticle($childLink, $fields, $additionalData);
+                $this->children->push($link_article);
+            }
+        }
+    }
+
+    private function convertChildLinkToChildArticle($childLink, $fields, $additionalData)
+    {
+        $link_article_query = $childLink->rootArticle();
+
+        if (isset($fields)) {
+            $link_article_query->select($fields);
+        }
+
+        $link_article = $link_article_query->first();
+
+        if (isset($additionalData)) {
+            $link_article->addDataAsFields($additionalData);
+        }
+
+        $link_article->addChildren($fields, $additionalData);
+
+        return $link_article;
     }
     
     /**
