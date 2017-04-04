@@ -4,6 +4,8 @@ namespace Sixoquent;
 
 use Illuminate\Database\Eloquent\Model;
 use Sixoquent\ArticleLink;
+use Sixoquent\ArticleArticle;
+use Sixoquent\ArticleData;
 
 class Article extends Model
 {
@@ -53,7 +55,7 @@ class Article extends Model
         if (!isset($articleData)) {
             $articleData = new \Sixoquent\ArticleData;
         }
-
+    
         $articleData->article_id = $this->id;
         $articleData->area_id = $this->area_id;
         $articleData->fieldname = $fieldname;
@@ -62,7 +64,43 @@ class Article extends Model
 
         $articleData->save();
     }
-    
+
+    public function saveMultipleData($data){
+        foreach($data as $key => $value){
+            $this->saveData($key, $value);
+        }
+    }
+
+    /**
+    * Deletes ArticleData of this Article 
+    */
+    public function deleteData(){
+        $articleData = \Sixoquent\ArticleData::where('article_id', $this->id)->delete();
+    }
+
+    public function getValue($fieldname){
+        $value = \Sixoquent\ArticleData::where('article_id', $this->id)->where('fieldname', $fieldname)->first();
+        return $value->attributes['value'];
+    }
+
+    public function checkForSpecificRelation($visitenkarte){
+        return \Sixoquent\ArticleArticle::where('article_id', $this->id)->where('rel_id', $visitenkarte->id)->exists();
+    }
+
+    public function checkForRelations(){
+        return \Sixoquent\ArticleArticle::where('article_id', $this->id)->exists();
+    }
+
+    public function deleteAllRelations(){
+        \Sixoquent\ArticleArticle::where('article_id', $this->id)->delete();
+        \Sixoquent\ArticleArticle::where('rel_id', $this->id)->delete();
+    }
+
+    public function deleteRelation($visitenkarte){
+        \Sixoquent\ArticleArticle::where('article_id', $this->id)->where('rel_id', $visitenkarte->id)->delete();
+        \Sixoquent\ArticleArticle::where('article_id', $visitenkarte->id)->where('rel_id', $this->id)->delete();
+    }
+
     /**
     * Adds ArticleData models as properties to Article model. Fieldname of ArticleData becomes property name, value becomes value.
     * @param {Array} [$fieldnames] Uses only ArticleData with given fieldnames
