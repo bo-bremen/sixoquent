@@ -80,7 +80,10 @@ class Article extends Model
 
     public function getValue($fieldname){
         $value = \Sixoquent\ArticleData::where('article_id', $this->id)->where('fieldname', $fieldname)->first();
-        return $value->attributes['value'];
+        if($value !== null){
+            return $value->attributes['value'];
+        }
+        return false;
     }
 
     public function checkForSpecificRelation($visitenkarte){
