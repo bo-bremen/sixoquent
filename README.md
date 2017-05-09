@@ -126,7 +126,6 @@ $linked_article =
 ##### Loading related article[s]
 
 ~~~php
-
 <?php
 
 use Sixoquent\Article;
@@ -150,8 +149,8 @@ $related_articles = $relation->relArticle()->get(['title', 'id']);
 ~~~
 
 ##### Check if article is in online state
-~~~php
 
+~~~php
 <?php
 
 use Sixoquent\Article;
