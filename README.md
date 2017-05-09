@@ -148,7 +148,7 @@ $related_articles = $relation->relArticle()->get(['title', 'id']);
 
 ~~~
 
-##### Check if article is in online state
+##### Check online status of article
 
 ~~~php
 <?php
