@@ -129,6 +129,8 @@ $linked_article =
 
 <?php
 
+use Sixoquent\Article;
+
 $article = Article::find(1);
 
 // Get first related article from table sixcms_article_article formerly known as as "Relation"
@@ -151,6 +153,8 @@ $related_articles = $relation->relArticle()->get(['title', 'id']);
 ~~~php
 
 <?php
+
+use Sixoquent\Article;
 
 $article = Article::find(1);
 
