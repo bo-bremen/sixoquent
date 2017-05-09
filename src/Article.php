@@ -13,7 +13,7 @@ class Article extends Model
     
     const CREATED_AT = 'creation_date';
     const UPDATED_AT = 'change_date';
-
+    
     public function area()
     {
         return $this->belongsTo('\Sixoquent\Area');
@@ -43,9 +43,23 @@ class Article extends Model
     {
         return $this->hasMany('\Sixoquent\ArticleLink');
     }
+    
 
     /**
-    * Saves key value pair as ArticleData of this Article 
+    * Checks if article is online. Needs properties published, online_date, offline_date to be loaded.
+    * @return Boolean
+    */
+    public function online(){
+        $this->online = false; 
+        if($this->published == true){
+            $now = strtotime('now');
+            $this->online = $now > strtotime($this->online_date) && $now < strtotime($this->offline_date);
+        };
+        return $this->online;
+    }
+    
+    /**
+    * Saves key value pair as ArticleData of this Article
     * @param {String} $fieldname
     * @param {String} $value
     */
@@ -55,55 +69,52 @@ class Article extends Model
         if (!isset($articleData)) {
             $articleData = new \Sixoquent\ArticleData;
         }
-    
+        
         $articleData->article_id = $this->id;
         $articleData->area_id = $this->area_id;
         $articleData->fieldname = $fieldname;
         $articleData->value = $value;
         $articleData->sindex = substr($value, 0, 19);
-
+        
         $articleData->save();
     }
-
+    
     public function saveMultipleData($data){
         foreach($data as $key => $value){
             $this->saveData($key, $value);
         }
     }
-
+    
     /**
-    * Deletes ArticleData of this Article 
+    * Deletes ArticleData of this Article
     */
     public function deleteData(){
         $articleData = \Sixoquent\ArticleData::where('article_id', $this->id)->delete();
     }
-
+    
     public function getValue($fieldname){
         $value = \Sixoquent\ArticleData::where('article_id', $this->id)->where('fieldname', $fieldname)->first();
-        if($value !== null){
-            return $value->attributes['value'];
-        }
-        return false;
+        return $value->attributes['value'];
     }
-
+    
     public function checkForSpecificRelation($visitenkarte){
         return \Sixoquent\ArticleArticle::where('article_id', $this->id)->where('rel_id', $visitenkarte->id)->exists();
     }
-
+    
     public function checkForRelations(){
         return \Sixoquent\ArticleArticle::where('article_id', $this->id)->exists();
     }
-
+    
     public function deleteAllRelations(){
         \Sixoquent\ArticleArticle::where('article_id', $this->id)->delete();
         \Sixoquent\ArticleArticle::where('rel_id', $this->id)->delete();
     }
-
+    
     public function deleteRelation($visitenkarte){
         \Sixoquent\ArticleArticle::where('article_id', $this->id)->where('rel_id', $visitenkarte->id)->delete();
         \Sixoquent\ArticleArticle::where('article_id', $visitenkarte->id)->where('rel_id', $this->id)->delete();
     }
-
+    
     /**
     * Adds ArticleData models as properties to Article model. Fieldname of ArticleData becomes property name, value becomes value.
     * @param {Array} [$fieldnames] Uses only ArticleData with given fieldnames
@@ -121,7 +132,7 @@ class Article extends Model
         }
         return $this;
     }
-
+    
     private function addValue($key, $value)
     {
         $this->$key = $value;
@@ -152,21 +163,21 @@ class Article extends Model
         }
         return $this;
     }
-
-     public function parentLink()
+    
+    public function parentLink()
     {
-         return $this->belongsTo('\Sixoquent\ArticleLink', 'id', 'article_id')
-                    ->where('fieldname', 'sixcms_parent')
-                    ->select(['article_id','link_id']);
+        return $this->belongsTo('\Sixoquent\ArticleLink', 'id', 'article_id')
+        ->where('fieldname', 'sixcms_parent')
+        ->select(['article_id','link_id']);
     }
-
+    
     public function childrenLinks()
     {
         return $this->hasMany('\Sixoquent\ArticleLink', 'link_id', 'id')
-                    ->where('fieldname', 'sixcms_parent')
-                    ->select(['article_id','link_id']);
+        ->where('fieldname', 'sixcms_parent')
+        ->select(['article_id','link_id']);
     }
-
+    
     public function addChildren($fields = null, $additionalData = null)
     {
         $childrenLinks = $this->childrenLinks()->get();
@@ -178,23 +189,23 @@ class Article extends Model
             }
         }
     }
-
+    
     private function convertChildLinkToChildArticle($childLink, $fields, $additionalData)
     {
         $link_article_query = $childLink->rootArticle();
-
+        
         if (isset($fields)) {
             $link_article_query->select($fields);
         }
-
+        
         $link_article = $link_article_query->first();
-
+        
         if (isset($additionalData)) {
             $link_article->addDataAsFields($additionalData);
         }
-
+        
         $link_article->addChildren($fields, $additionalData);
-
+        
         return $link_article;
     }
     
