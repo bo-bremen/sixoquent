@@ -122,3 +122,41 @@ $linked_article =
 
 ?>
 ~~~
+
+##### Loading related article[s]
+
+~~~php
+
+<?php
+
+$article = Article::find(1);
+
+// Get first related article from table sixcms_article_article formerly known as as "Relation"
+$relation = $article->article()->first();
+
+// Get related article
+$related_article = $relation->relArticle()->first();
+
+// Or get many related article
+$related_articles = $relation->relArticle()->get();
+
+// Or
+$related_articles = $relation->relArticle()->get(['title', 'id']);
+
+?>
+
+~~~
+
+##### Check if article is in online state
+~~~php
+
+<?php
+
+$article = Article::find(1);
+
+// True if article is published, online_date is past and offline_date is future
+$article->online();
+
+?>
+
+~~~
