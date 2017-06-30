@@ -96,7 +96,11 @@ class Article extends Model
         $value = \Sixoquent\ArticleData::where('article_id', $this->id)->where('fieldname', $fieldname)->first();
         return $value->attributes['value'];
     }
-    
+
+    public function checkFieldname($fieldname){
+        return \Sixoquent\ArticleData::where('article_id', $this->id)->where('fieldname', $fieldname)->exists();
+    }
+
     public function checkForSpecificRelation($visitenkarte){
         return \Sixoquent\ArticleArticle::where('article_id', $this->id)->where('rel_id', $visitenkarte->id)->exists();
     }
