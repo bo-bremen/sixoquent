@@ -13,7 +13,7 @@ class Folder extends Model
 	}
 	
 	public function childrenFolder(){
-		return $this->hasMany('Sixoquent\Folder', 'id', 'parent_id');
+		return $this->hasMany('Sixoquent\Folder', 'parent_id');
 	}
 	
 	public function areas(){
