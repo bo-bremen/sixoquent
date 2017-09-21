@@ -101,8 +101,8 @@ class Article extends Model
         return \Sixoquent\ArticleData::where('article_id', $this->id)->where('fieldname', $fieldname)->exists();
     }
 
-    public function checkForSpecificRelation($visitenkarte){
-        return \Sixoquent\ArticleArticle::where('article_id', $this->id)->where('rel_id', $visitenkarte->id)->exists();
+    public function checkForSpecificRelation(\Illuminate\Database\Eloquent\Model $article){
+        return \Sixoquent\ArticleArticle::where('article_id', $this->id)->where('rel_id', $article->id)->exists();
     }
     
     public function checkForRelations(){
@@ -114,9 +114,9 @@ class Article extends Model
         \Sixoquent\ArticleArticle::where('rel_id', $this->id)->delete();
     }
     
-    public function deleteRelation($visitenkarte){
-        \Sixoquent\ArticleArticle::where('article_id', $this->id)->where('rel_id', $visitenkarte->id)->delete();
-        \Sixoquent\ArticleArticle::where('article_id', $visitenkarte->id)->where('rel_id', $this->id)->delete();
+    public function deleteRelation(\Illuminate\Database\Eloquent\Model $article){
+        \Sixoquent\ArticleArticle::where('article_id', $this->id)->where('rel_id', $article->id)->delete();
+        \Sixoquent\ArticleArticle::where('article_id', $article->id)->where('rel_id', $this->id)->delete();
     }
     
     /**
