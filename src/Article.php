@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Sixoquent\ArticleLink;
 use Sixoquent\ArticleArticle;
 use Sixoquent\ArticleData;
+use Carbon\Carbon;
 
 class Article extends Model
 {
@@ -52,8 +53,9 @@ class Article extends Model
     public function online(){
         $this->online = false; 
         if($this->published == true){
-            $now = strtotime('now');
-            $this->online = $now > strtotime($this->online_date) && $now < strtotime($this->offline_date);
+            $online_date = new Carbon($this->online_date);
+            $offline_date = new Carbon($this->offline_date);
+            $this->online = $online_date->isPast() && $offline_date->isFuture();
         };
         return $this->online;
     }

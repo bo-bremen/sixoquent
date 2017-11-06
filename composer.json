@@ -16,6 +16,7 @@
     "require": {
         "php": ">=5.3.2",
         "illuminate/database": "5.*",
-        "mpociot/laravel-composite-key": "^1.0"
+        "mpociot/laravel-composite-key": "^1.0",
+        "nesbot/carbon": "^1.22"
     }
 }
