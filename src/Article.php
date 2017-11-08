@@ -53,8 +53,8 @@ class Article extends Model
     public function online(){
         $this->online = false; 
         if($this->published == true){
-            $online_date = new Carbon($this->online_date);
-            $offline_date = new Carbon($this->offline_date);
+            $online_date = new Carbon($this->online_date, 'Europe/Berlin');
+            $offline_date = new Carbon($this->offline_date, 'Europe/Berlin');
             $this->online = $online_date->isPast() && $offline_date->isFuture();
         };
         return $this->online;
